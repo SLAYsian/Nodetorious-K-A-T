@@ -1,0 +1,15 @@
+{
+  "name": "nodetorious-k-a-t",
+  "version": "1.0.0",
+  "description": "A professional README generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kat Gorecki",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
