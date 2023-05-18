@@ -74,26 +74,63 @@ const promptQuestions = () => {
 };
 
 // SECTION: GENERATE MARKDOWN
-function generateMarkdown(answers) {
-let data = fs.readFileSync('README.md', 'utf-8');
-data = data.replace(/{%TITLE%}/g, answers.title);
-data = data.replace(/{%DESCRIPTION%}/g, answers.description);
-data = data.replace(/{%INSTALLATION}/g, answers.installation);
-data = data.replace(/{%USAGE%}/g, answers.usage);
-data = data.replace(/{%LICENSE%}/g, answers.license);
-data = data.replace(/{%CONTRIBUTING%}/g, answers.contributing);
-data = data.replace(/{%TESTS%}/g, answers.tests);
-data = data.replace(/{%GITHUB%}/g, answers.github);
-data = data.replace(/{%EMAIL%}/g, answers.email);
-return data;
-}
+const generateMarkdown = (answers) => 
+  `# ${answers.title}
+  
+  ## DESCRIPTION
+  ${answers.description}
+  
+  ## TABLE OF CONTENTS
+
+  ## INSTALLATION
+  ${answers.installation}
+
+  ## USAGE
+  ${answers.usage}
+
+  ## LICENSE
+  ${answers.license}
+
+  ## CONTRIBUTING
+  If you are interested in contributing to this project, please:
+  ${answers.contributing}
+
+  ## TESTS
+  ${answers.tests}
+
+  ## QUESTIONS
+  To see more of my work, please visit my GitHub page: https://github.com/${answers.github}!
+
+  If you have any questions, please contact me at ${answers.email}.
+  `;
+
+// function generateMarkdown(answers) {
+// let data = fs.readFileSync('README.md', 'utf-8');
+// data = data.replace(/{%TITLE%}/g, answers.title);
+// data = data.replace(/{%DESCRIPTION%}/g, answers.description);
+// data = data.replace(/{%INSTALLATION}/g, answers.installation);
+// data = data.replace(/{%USAGE%}/g, answers.usage);
+// data = data.replace(/{%LICENSE%}/g, answers.license);
+// data = data.replace(/{%CONTRIBUTING%}/g, answers.contributing);
+// data = data.replace(/{%TESTS%}/g, answers.tests);
+// data = data.replace(/{%GITHUB%}/g, answers.github);
+// data = data.replace(/{%EMAIL%}/g, answers.email);
+// return data;
+// }
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-}
+// function writeToFile(fileName, data) {
+//   fs.writeFile(fileName, data);
+//   console.log('Your README.md file has been successfully generated!');
+// }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+  promptQuestions()
+   .then((answers) => writeFile(`${__dirname}/readme-generated/GENERATED.md`, generateMarkdown(answers)))
+   .then(() => console.log('Your README.md file has been successfully generated!'))
+   .catch((err) => console.error(err));
+};
 
 // Function call to initialize app
 init();
