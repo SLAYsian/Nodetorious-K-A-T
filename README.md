@@ -11,8 +11,10 @@ Provide a short description explaining the what, why, and how of your project. U
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
 ## Installation
 What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.
