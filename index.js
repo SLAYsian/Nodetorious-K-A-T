@@ -94,9 +94,8 @@ const generateMarkdown = (answers) =>
   ${answers.installation.split(';').map(step => `- ${step.trim()}`).join('\n')}\n` : ''}
   
   ${(answers.usage || answers.usageImage) ? 
-    `## USAGE\n---
-    ${answers.usage ? answers.usage.split(';').map(step => `- ${step.trim()}`).join('\n') : ''}\n\n${answers.usageImage ? answers.usageImages.split(';').map(image => `![Usage Image](${image.trim()})`).join('\n') : ''}` : ''}
-
+  `## USAGE\n---
+  ${answers.usage ? answers.usage.split(';').map(step => `- ${step.trim()}`).join('\n') : ''}\n\n${answers.usageImage ? answers.usageImage.split(';').map(image => `![Usage Image](${image.trim()})`).join('\n') : ''}` : ''}
 
   ## LICENSE\n---
   ${answers.license}
@@ -104,7 +103,8 @@ const generateMarkdown = (answers) =>
   ${answers.contributing ? `## CONTRIBUTING\n---
   If you are interested in contributing to this project, please follow these steps:\n ${answers.contributing.split(';').map(step => `- ${step.trim()}`).join('\n')}\n` : ''}
 
-  ${answers.tests ? `## TESTS\n---
+  ${answers.tests ? 
+  `## TESTS\n---
   ${answers.tests}` : ''}
 
   ## QUESTIONS\n---
