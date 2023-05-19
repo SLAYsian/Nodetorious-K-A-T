@@ -38,6 +38,8 @@
 ![Usage Image](./images/preview2.png)
 ![Usage Image](./images/preview3.png)
 
+https://github.com/SLAYsian/Nodetorious-K-A-T/assets/127693250/13b058f2-6dea-4254-909e-56a781a93d0a
+
 
   ## RESOURCES
 ---
