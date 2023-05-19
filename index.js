@@ -10,32 +10,32 @@ const promptQuestions = () => {
   {
     type: 'input',
     name: 'title',
-    message: 'What is the title of your project?',
+    message: 'TITLE: What is the title of your project?',
   },
   {
     type: 'input',
     name: 'description',
-    message: 'Provide a brief description of your project. What was your motivation? What problem does it solve? What did you learn?',
+    message: 'DESCRIPTION: Provide a brief description of your project. What was your motivation? What problem does it solve? What did you learn?',
   },
   {
     type: 'input',
     name: 'installation',
-    message: 'What are the steps required to install your project? Please separate each step with a semicolon (;).',
+    message: 'INSTALLATION: What are the steps required to install your project? Please separate each step with a semicolon (;).',
   },
   {
     type: 'input',
     name: 'usage',
-    message: 'Provide instruction for use, separating each step with a semicolon (;).',
+    message: 'USAGE: Provide instruction for use, separating each step with a semicolon (;).',
   },
   {
     type: 'input',
     name: 'usageImage',
-    message: 'If you would like to add images to the usage section, please provide the URLs or local path to the images, separated by a semicolon (;).',
+    message: 'IMAGES: If you would like to add images to the usage section, please provide the URLs or local path to the images, separated by a semicolon (;).',
   },
   {
     type: 'list',
     name: 'license',
-    message: 'What licence does your project use?',
+    message: 'LICENSE: What licence does your project use?',
     choices: [
       'MIT',
       'ISC',
@@ -52,22 +52,22 @@ const promptQuestions = () => {
   {
     type: 'input',
     name: 'contributing',
-    message: 'If you would like others to contribute to your project, please provide a step-by-step guideline of how to do so. Please separate each step by a semicolon (;).',
+    message: 'CONTRIBUTING: If you would like others to contribute to your project, please provide a step-by-step guideline of how to do so. Please separate each step by a semicolon (;).',
   },
   {
     type: 'input',
     name: 'tests',
-    message: 'If you have any tests, please provide instructions on how to run them.',
+    message: 'TESTS: If you have any tests, please provide instructions on how to run them.',
   },
   {
     type: 'input',
     name: 'github',
-    message: 'What is your GitHub username?',
+    message: 'GITHUB: What is your GitHub username?',
   },
   {
     type: 'input',
     name: 'email',
-    message: 'What is your email address?',
+    message: 'EMAIL: What is your email address?',
   },
 ]);
 };
@@ -108,9 +108,9 @@ const generateMarkdown = (answers) =>
   ${answers.tests}` : ''}
 
   ## QUESTIONS\n---
-  ${answers.github ? `To see more of my work, please visit my GitHub page: https://github.com/${answers.github}!` : ''}
+  ${answers.github ? `To see more of my work, please visit my GitHub page: https://github.com/${answers.github}` : ''}
 
-  ${answers.email ? `If you have any questions, please contact me at ${answers.email}.` : ''}
+  ${answers.email ? `If you have any questions, please contact me at ${answers.email}` : ''}
   `;
 
 // SECTION: GENERATE LICENSE BADGES
@@ -158,7 +158,7 @@ function generateLicenseBadge(license) {
 // TODO: Create a function to initialize app
 function init() {
   promptQuestions()
-   .then((answers) => writeFile(`${__dirname}/README.md`, generateMarkdown(answers)))
+   .then((answers) => writeFile(`${__dirname}/sample-readme/SAMPLE.md`, generateMarkdown(answers)))
    .then(() => console.log('Your README.md file has been successfully generated!'))
    .catch((err) => console.error(err));
 };
