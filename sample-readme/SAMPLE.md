@@ -27,14 +27,14 @@
   - Navigate to the directory of your index.js file
 - In the command line, type: node index.js
 - Answer each prompt that appears in the command line
-- Your README will generate to the README.md file!
+- Your README will generate to the SAMPLE.md file!
 
-![Usage Image](./images/questions-prompts.png)
-![Usage Image](./images/readme1.png)
-![Usage Image](./images/readme2.png)
-![Usage Image](./images/preview1.png)
-![Usage Image](./images/preview2.png)
-![Usage Image](./images/preview3.png)
+![Usage Image](../images/questions-prompts.png)
+![Usage Image](../images/readme1.png)
+![Usage Image](../images/readme2.png)
+![Usage Image](../images/preview1.png)
+![Usage Image](../images/preview2.png)
+![Usage Image](../images/preview3.png)
 
   ## LICENSE
 ---
@@ -56,7 +56,7 @@
 
   ## QUESTIONS
 ---
-  To see more of my work, please visit my GitHub page: https://github.com/slaysian!
+  To see more of my work, please visit my GitHub page: https://github.com/slaysian
 
   If you have any questions, please contact me at katharinemg@gmail.com
   
