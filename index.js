@@ -77,57 +77,83 @@ const promptQuestions = () => {
 const generateMarkdown = (answers) => 
   `# ${answers.title}
   
-  ## DESCRIPTION
-  ${answers.description}
+  ${answers.license && (answers.license !== 'No license') ? `![License](${generateLicenseBadge(answers.license)})\n` : ''}
+
+  ${answers.description ? 
+  `## DESCRIPTION\n ${answers.description}` : ''}
   
   ## TABLE OF CONTENTS
+  ${answers.description ? `- [Description](#description)` : ''}
+  ${answers.installation ? `- [Installation](#installation)` : ''}
+  ${answers.usage ? `- [Usage](#usage)` : ''}
+  - [License](#license)
+  ${answers.contributing ? `- [Contributing](#contributing)` : ''}
+  ${answers.tests ? `- [Tests](#tests)` : ''}
+  ${(answers.github || answers.email) ? `- [Questions](#questions)` : ''}
 
-  ## INSTALLATION
-  ${answers.installation}
-
-  ## USAGE
-  ${answers.usage}
+  ${answers.installation ? `## INSTALLATION\n ${answers.installation}` : ''}
+  
+  ${answers.usage ? `## USAGE\n ${answers.usage}` : ''}
 
   ## LICENSE
   ${answers.license}
 
-  ## CONTRIBUTING
-  If you are interested in contributing to this project, please:
-  ${answers.contributing}
+  ${answers.contributing ? `## CONTRIBUTING\n If you are interested in contributing to this project:\n ${answers.contributing}` : ''}
 
-  ## TESTS
-  ${answers.tests}
+  ${answers.tests ? `## TESTS\n ${answers.tests}` : ''}
 
   ## QUESTIONS
-  To see more of my work, please visit my GitHub page: https://github.com/${answers.github}!
+  ${answers.github ? `To see more of my work, please visit my GitHub page: https://github.com/${answers.github}!` : ''}
 
-  If you have any questions, please contact me at ${answers.email}.
+  ${answers.email ? `If you have any questions, please contact me at ${answers.email}.` : ''}
   `;
 
-// function generateMarkdown(answers) {
-// let data = fs.readFileSync('README.md', 'utf-8');
-// data = data.replace(/{%TITLE%}/g, answers.title);
-// data = data.replace(/{%DESCRIPTION%}/g, answers.description);
-// data = data.replace(/{%INSTALLATION}/g, answers.installation);
-// data = data.replace(/{%USAGE%}/g, answers.usage);
-// data = data.replace(/{%LICENSE%}/g, answers.license);
-// data = data.replace(/{%CONTRIBUTING%}/g, answers.contributing);
-// data = data.replace(/{%TESTS%}/g, answers.tests);
-// data = data.replace(/{%GITHUB%}/g, answers.github);
-// data = data.replace(/{%EMAIL%}/g, answers.email);
-// return data;
-// }
+// SECTION: GENERATE LICENSE BADGES
+function generateLicenseBadge(license) {
+  let licenseBadge;
+  switch (license) {
+    case 'MIT':
+      licenseBadge = '![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)';
+      break;
+    case 'ISC':
+      licenseBadge = '![ISC License](https://img.shields.io/badge/License-ISC-blue.svg)';
+      break;
+    case 'Apache':
+      licenseBadge = '![Apache License 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)';
+      break;
+    case 'GNU GPL v3':
+      licenseBadge = '![GNU GPL v3 License](https://img.shields.io/badge/License-GPLv3-blue.svg)';
+      break;
+    case 'Boost':
+      licenseBadge = '![Boost License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)';
+      break;
+    case 'IBM':
+      licenseBadge = '![IBM License](https://img.shields.io/badge/License-IPL_1.0-blue.svg)';
+      break;
+    case 'Mozilla':
+      licenseBadge = '![Mozilla License](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)';
+      break;
+    case 'BSD 3-Clause':
+      licenseBadge = '![BSD 3-Clause License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)';
+      break;
+    case 'The Unlicense':
+      licenseBadge = '![The Unlicense License](https://img.shields.io/badge/license-Unlicense-blue.svg)';
+      break;
+    case 'no license':
+      licenseBadge = '';
+      break;
+    default:
+      licenseBadge = '';
+      break;
+  }
+  return licenseBadge;
+}
 
-// TODO: Create a function to write README file
-// function writeToFile(fileName, data) {
-//   fs.writeFile(fileName, data);
-//   console.log('Your README.md file has been successfully generated!');
-// }
 
 // TODO: Create a function to initialize app
 function init() {
   promptQuestions()
-   .then((answers) => writeFile(`${__dirname}/readme-generated/GENERATED.md`, generateMarkdown(answers)))
+   .then((answers) => writeFile(`${__dirname}/README.md`, generateMarkdown(answers)))
    .then(() => console.log('Your README.md file has been successfully generated!'))
    .catch((err) => console.error(err));
 };
