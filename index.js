@@ -16,22 +16,21 @@ const promptQuestions = () => {
     type: 'input',
     name: 'description',
     message: 'Provide a brief description of your project. What was your motivation? What problem does it solve? What did you learn?',
-    // message: {
-    //   descr: 'Provide a brief description of your project.',
-    //   motivation: 'What was your motivation?',
-    //   solve: 'What problem does it solve?',
-    //   learn: 'What did you learn?',
-    //   },
   },
   {
     type: 'input',
     name: 'installation',
-    message: 'What are the steps required to install your project?',
+    message: 'What are the steps required to install your project? Please separate each step with a semicolon (;).',
   },
   {
     type: 'input',
     name: 'usage',
-    message: 'Provide instruction for use, include screenshots as needed.',
+    message: 'Provide instruction for use, separating each step with a semicolon (;).',
+  },
+  {
+    type: 'input',
+    name: 'usageImage',
+    message: 'If you would like to add images to the usage section, please provide the URLs or local path to the images, separated by a semicolon (;).',
   },
   {
     type: 'list',
@@ -53,7 +52,7 @@ const promptQuestions = () => {
   {
     type: 'input',
     name: 'contributing',
-    message: 'If you would like others to contribute to your project, please provide a step-by-step guideline of how to do so?',
+    message: 'If you would like others to contribute to your project, please provide a step-by-step guideline of how to do so. Please separate each step by a semicolon (;).',
   },
   {
     type: 'input',
@@ -77,13 +76,13 @@ const promptQuestions = () => {
 const generateMarkdown = (answers) => 
   `# ${answers.title}
   
-  ${answers.license && (answers.license !== 'No license') ? `![License](${generateLicenseBadge(answers.license)})\n` : ''}
+  ${answers.license && (answers.license !== 'No license') ? `${generateLicenseBadge(answers.license)}` : ''}
 
   ${answers.description ? 
-  `## DESCRIPTION\n ${answers.description}` : ''}
+  `## DESCRIPTION\n---
+  ${answers.description}` : ''}
   
-  ## TABLE OF CONTENTS
-  ${answers.description ? `- [Description](#description)` : ''}
+  ## TABLE OF CONTENTS\n---
   ${answers.installation ? `- [Installation](#installation)` : ''}
   ${answers.usage ? `- [Usage](#usage)` : ''}
   - [License](#license)
@@ -91,18 +90,24 @@ const generateMarkdown = (answers) =>
   ${answers.tests ? `- [Tests](#tests)` : ''}
   ${(answers.github || answers.email) ? `- [Questions](#questions)` : ''}
 
-  ${answers.installation ? `## INSTALLATION\n ${answers.installation}` : ''}
+  ${answers.installation ? `## INSTALLATION\n---
+  ${answers.installation.split(';').map(step => `- ${step.trim()}`).join('\n')}\n` : ''}
   
-  ${answers.usage ? `## USAGE\n ${answers.usage}` : ''}
+  ${(answers.usage || answers.usageImage) ? 
+    `## USAGE\n---
+    ${answers.usage ? answers.usage.split(';').map(step => `- ${step.trim()}`).join('\n') : ''}\n\n${answers.usageImage ? answers.usageImages.split(';').map(image => `![Usage Image](${image.trim()})`).join('\n') : ''}` : ''}
 
-  ## LICENSE
+
+  ## LICENSE\n---
   ${answers.license}
 
-  ${answers.contributing ? `## CONTRIBUTING\n If you are interested in contributing to this project:\n ${answers.contributing}` : ''}
+  ${answers.contributing ? `## CONTRIBUTING\n---
+  If you are interested in contributing to this project, please follow these steps:\n ${answers.contributing.split(';').map(step => `- ${step.trim()}`).join('\n')}\n` : ''}
 
-  ${answers.tests ? `## TESTS\n ${answers.tests}` : ''}
+  ${answers.tests ? `## TESTS\n---
+  ${answers.tests}` : ''}
 
-  ## QUESTIONS
+  ## QUESTIONS\n---
   ${answers.github ? `To see more of my work, please visit my GitHub page: https://github.com/${answers.github}!` : ''}
 
   ${answers.email ? `If you have any questions, please contact me at ${answers.email}.` : ''}
